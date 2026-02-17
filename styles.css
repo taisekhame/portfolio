@@ -1,0 +1,1220 @@
+/* ==========================================================================
+   PORTFOLIO — MERGED STYLES
+   From: Draggable Menu, Fractal Glass, Horizontal Scroll, SVG Hover,
+         OVA Scroll Slider, WebGL Gradient, Sticky Footer, Maxmilkin Preloader
+   ========================================================================== */
+
+/* --- Google Fonts --- */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap");
+@import url("https://fonts.cdnfonts.com/css/pp-neue-montreal");
+
+/* --- CSS Variables --- */
+:root {
+    --color-bg: #0f0f0f;
+    --color-text: #ffffff;
+    --color-light: #edf1e8;
+    --color-dark: #101010;
+    --color-accent: #6200b3;
+    --color-accent-2: #ffa630;
+    --loader-bg: #0f0f0f;
+    --loader-text: #ffffff;
+    --font-primary: "Manrope", sans-serif;
+    --font-secondary: "Inter", sans-serif;
+    --font-mono: "Geist Mono", monospace;
+    --font-display: "PP Neue Montreal", sans-serif;
+    --font-footer: "DM Sans", sans-serif;
+}
+
+/* --- Global Reset --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- Hide content until preloader finishes --- */
+.site-menu,
+.hero-section,
+.about-section,
+.skills-section,
+.projects-section,
+.contact-section,
+.site-footer {
+    visibility: hidden;
+    opacity: 0;
+}
+
+body.page-loaded .site-menu,
+body.page-loaded .hero-section,
+body.page-loaded .about-section,
+body.page-loaded .skills-section,
+body.page-loaded .projects-section,
+body.page-loaded .contact-section,
+body.page-loaded .site-footer {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* ==========================================================================
+   PAGE TRANSITION OVERLAY
+   ========================================================================== */
+
+.transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 9997;
+    pointer-events: none;
+}
+
+.transition-row {
+    flex: 1;
+    display: flex;
+}
+
+.transition-row.row-1 .block {
+    transform-origin: top;
+}
+
+.transition-row.row-2 .block {
+    transform-origin: bottom;
+}
+
+.transition .block {
+    flex: 1;
+    background-color: #0f0f0f;
+    transform: scaleY(0);
+    visibility: hidden;
+    will-change: transform;
+}
+
+/* ==========================================================================
+   1. PRELOADER (Maxmilkin)
+   ========================================================================== */
+
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100svh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--loader-bg);
+    color: var(--loader-text);
+    will-change: opacity;
+    z-index: 9999;
+}
+
+.preloader .counter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-secondary);
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.preloader svg {
+    width: 85%;
+    height: 85%;
+}
+
+.preloader svg path {
+    fill: none;
+}
+
+.preloader svg .orbit-text {
+    fill: var(--loader-text);
+    text-transform: uppercase;
+    font-size: 2.75rem;
+    font-weight: 500;
+    font-family: var(--font-secondary);
+}
+
+/* ==========================================================================
+   2. DRAGGABLE MENU
+   ========================================================================== */
+
+.site-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9998;
+    pointer-events: none;
+}
+
+.site-menu .menu-drop-zone {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    height: calc(3.5rem + 0.7rem);
+    border: 0.075rem dashed rgba(255, 255, 255, 0.5);
+    border-radius: 4rem;
+    transition: opacity 0.2s ease-out;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.site-menu .menu-drawer {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    padding: 0.35rem;
+    background-color: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4rem;
+    display: flex;
+    align-items: center;
+    pointer-events: all;
+    /* transform: translate3d(0, 0, 0);  Force GPU layer */
+    /* will-change: transform; */
+    /* isolation: isolate;  Create isolated stacking context */
+}
+
+.site-menu .menu-logo {
+    width: 6rem;
+    height: 3.5rem;
+    border-radius: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.site-menu .menu-logo img {
+    width: 3.5rem;
+    height: auto;
+}
+
+.site-menu .menu-items {
+    display: flex;
+    gap: 0.35rem;
+    overflow: hidden;
+}
+
+.site-menu .menu-items .menu-item {
+    width: max-content;
+    height: 3.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    opacity: 0;
+}
+
+.site-menu .menu-items .menu-item a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 450;
+    letter-spacing: -0.01rem;
+    padding: 0 1.5rem;
+    user-select: none;
+    font-size: 0.9rem;
+}
+
+.site-menu .menu-toggler {
+    position: relative;
+    width: 3.5rem;
+    height: 3.5rem;
+    padding: 1.125rem;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.site-menu .menu-toggler span {
+    position: relative;
+    width: 100%;
+    height: 0.125rem;
+    background-color: #fff;
+    transition: transform 0.3s ease;
+    transform-origin: center;
+    will-change: transform;
+}
+
+.site-menu .menu-toggler.close span:nth-child(1) {
+    transform: rotate(45deg) translateX(0.125rem) translateY(0.1rem) scaleX(0.9);
+}
+
+.site-menu .menu-toggler.close span:nth-child(2) {
+    transform: rotate(-45deg) translateX(0.125rem) translateY(-0.1rem) scaleX(0.9);
+}
+
+/* ==========================================================================
+   3. HERO SECTION (Fractal Glass Parallax)
+   ========================================================================== */
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.hero-section #heroGlassTexture {
+    display: none;
+}
+
+.hero-section .hero-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-section .hero-content {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 2;
+}
+
+.hero-section .hero-content h1 {
+    width: 60%;
+    font-size: 4rem;
+    font-weight: 500;
+    letter-spacing: -0.1rem;
+    line-height: 1;
+    color: #fff;
+}
+
+.hero-section .hero-content p {
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 550;
+    line-height: 1;
+}
+
+/* ==========================================================================
+   4. ABOUT SECTION (Horizontal Scroll Pattern Extractor)
+   ========================================================================== */
+
+.about-section {
+    position: relative;
+    width: 100%;
+}
+
+.about-section .about-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-light);
+    will-change: background-color;
+}
+
+.about-section .about-hero,
+.about-section .about-outro {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    padding: 2rem;
+    align-content: center;
+    text-align: center;
+}
+
+.about-section .about-hero h1,
+.about-section .about-outro h1 {
+    width: 75%;
+    margin: 0 auto;
+    font-family: var(--font-display);
+    font-size: 4rem;
+    font-weight: 500;
+    letter-spacing: -0.075rem;
+    line-height: 1.125;
+    color: var(--color-dark);
+}
+
+.about-section .about-outro {
+    background-color: var(--color-dark);
+}
+
+.about-section .about-outro h1 {
+    color: var(--color-light);
+}
+
+.about-section .about-marquee {
+    position: relative;
+    width: 100%;
+    height: 50svh;
+    overflow: hidden;
+}
+
+.about-section .marquee-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-5deg);
+    width: 150%;
+    height: 100%;
+}
+
+.about-section .marquee-images {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-75%, -50%);
+    width: 200%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    will-change: transform;
+}
+
+.about-section .marquee-img {
+    flex: 1;
+    width: 100%;
+    aspect-ratio: 5/3;
+}
+
+.about-section .about-horizontal-scroll {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    overflow: hidden;
+}
+
+.about-section .about-horizontal-scroll-wrapper {
+    position: relative;
+    width: 300%;
+    height: 100svh;
+    display: flex;
+    will-change: transform;
+}
+
+.about-section .about-horizontal-slide {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.about-section .about-horizontal-slide:not(.about-horizontal-spacer) {
+    background-color: var(--color-dark);
+    color: var(--color-light);
+}
+
+.about-section .about-horizontal-slide .col:nth-child(1) {
+    flex: 3;
+}
+
+.about-section .about-horizontal-slide .col:nth-child(2) {
+    flex: 2;
+}
+
+.about-section .about-horizontal-scroll .col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-section .about-horizontal-slide .col h3 {
+    width: 75%;
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 500;
+    letter-spacing: -0.025rem;
+    line-height: 1.125;
+}
+
+.about-section .about-horizontal-slide .col img {
+    width: 75%;
+    height: 75%;
+}
+
+/* ==========================================================================
+   5. SKILLS SECTION (SVG Image Hover Effect)
+   ========================================================================== */
+
+.skills-section {
+    position: relative;
+    width: 100%;
+    padding: 8rem 0;
+    background-color: var(--color-bg);
+}
+
+.skills-section .skills-header {
+    width: 100%;
+    padding: 6rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.skills-section .skills-header h1 {
+    font-size: clamp(2rem, 5vw, 7rem);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.05rem;
+    color: #fff;
+}
+
+.skills-section .skills-row {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto 1rem auto;
+    padding: 0 2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.skills-section .skills-card-container {
+    position: relative;
+    flex: 1;
+    max-width: 550px;
+    aspect-ratio: 4/3;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.skills-section .skills-card-container .card-img {
+    width: 100%;
+    height: 100%;
+}
+
+.skills-section .skills-card-container .svg-stroke {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2.5);
+    width: 100%;
+    height: 100%;
+}
+
+.skills-section .skills-card-container .svg-stroke svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Per-card stroke colors */
+.skills-section .skills-card-container:nth-child(odd) .svg-stroke-1 svg path {
+    stroke: #e67339;
+}
+
+.skills-section .skills-card-container:nth-child(even) .svg-stroke-1 svg path {
+    stroke: #a66363;
+}
+
+.skills-section .skills-card-container .svg-stroke-2 svg path {
+    stroke: #e0e0e0;
+}
+
+.skills-section .skills-card-title {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    color: #000;
+}
+
+.skills-section .skills-card-title h3 {
+    font-size: clamp(1.25rem, 2.5vw, 3rem);
+    font-weight: 450;
+    line-height: 1.25;
+    letter-spacing: -0.025rem;
+}
+
+.skills-section .skills-card-title .word {
+    will-change: transform;
+}
+
+/* ==========================================================================
+   6. PROJECTS SECTION (OVA Scroll Slider)
+   ========================================================================== */
+
+.projects-section {
+    position: relative;
+    width: 100%;
+    background-color: #0f0f0f;
+}
+
+.projects-section .projects-intro,
+.projects-section .projects-outro {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    padding: 2rem;
+    align-content: center;
+    background-color: #0f0f0f;
+    color: #fff;
+    overflow: hidden;
+}
+
+.projects-section .projects-intro h1,
+.projects-section .projects-outro h1 {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 400;
+    letter-spacing: -0.1rem;
+    line-height: 1.2;
+}
+
+.projects-section .project-slider {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    overflow: hidden;
+    background-color: #000;
+    margin-top: -2px;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+}
+
+.projects-section .project-slider-images {
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 4px);
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+}
+
+.projects-section .project-slider-images::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.projects-section .project-slider-images img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-origin: center;
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+}
+
+.projects-section .project-slider-title {
+    position: absolute;
+    top: 50%;
+    left: 2rem;
+    transform: translateY(-50%);
+    width: 50%;
+    color: #fff;
+    z-index: 2;
+}
+
+.projects-section .project-slider-title h1 {
+    font-size: 3rem;
+    font-weight: 400;
+    letter-spacing: -0.1rem;
+    line-height: 1.2;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+}
+
+.projects-section .project-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    padding-bottom: 0.25rem;
+    transition: border-color 0.3s ease, opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.projects-section .project-link:hover {
+    border-color: #fff;
+}
+
+.projects-section .project-link.placeholder {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.projects-section .project-slider-indicator {
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.projects-section .project-slider-indices {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+}
+
+.projects-section .project-slider-indices p {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #fff;
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: 0.85rem;
+}
+
+.projects-section .index {
+    position: relative;
+    width: 1.25rem;
+    display: flex;
+    justify-content: flex-end;
+    will-change: opacity;
+}
+
+.projects-section .marker {
+    position: relative;
+    width: 0.75rem;
+    height: 1px;
+    background-color: #fff;
+    transform-origin: right;
+    will-change: transform;
+    transform: scaleX(0);
+}
+
+.projects-section .project-slider-progress-bar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 3px;
+    height: 100%;
+    background-color: transparent;
+    z-index: 2;
+}
+
+.projects-section .project-slider-progress {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleY(0);
+    width: 3px;
+    height: 100%;
+    background-color: #fff;
+    transform-origin: top;
+    will-change: transform;
+    opacity: 1;
+}
+
+.projects-section .line {
+    position: relative;
+    display: block;
+    will-change: transform;
+}
+
+/* ==========================================================================
+   7. CONTACT SECTION (WebGL Interactive Gradient)
+   ========================================================================== */
+
+.contact-section {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    overflow: hidden;
+}
+
+.contact-section .contact-gradient-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.contact-section .contact-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    padding: 2rem;
+}
+
+.contact-section .contact-content h1 {
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #fff;
+}
+
+.contact-section .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 500px;
+}
+
+.contact-section .contact-form input,
+.contact-section .contact-form textarea {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0.75rem;
+    color: #fff;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.contact-section .contact-form input::placeholder,
+.contact-section .contact-form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.contact-section .contact-form input:focus,
+.contact-section .contact-form textarea:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.contact-section .contact-form textarea {
+    resize: none;
+    height: 150px;
+}
+
+.contact-section .contact-form button {
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.75rem;
+    color: #fff;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
+
+.contact-section .contact-form button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.contact-section .contact-form button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.contact-section .contact-form-feedback {
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 450;
+    min-height: 1.5em;
+    transition: opacity 0.3s ease;
+}
+
+.contact-section .contact-form-feedback.success {
+    color: #6dffc0;
+}
+
+.contact-section .contact-form-feedback.error {
+    color: #ff6d6d;
+}
+
+.contact-section .contact-footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+}
+
+.contact-section .contact-footer p {
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 450;
+}
+
+/* ==========================================================================
+   8. FOOTER (Sticky Footer + 3D Model)
+   ========================================================================== */
+
+.site-footer {
+    position: relative;
+    width: 100%;
+    height: 75svh;
+    background-color: #171717;
+    color: #fff;
+    overflow: hidden;
+}
+
+.site-footer .footer-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transform: translateY(-35%);
+    will-change: transform;
+}
+
+.site-footer #footer-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+.site-footer .footer-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+.site-footer .footer-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.site-footer .footer-row:nth-child(1) .footer-col:nth-child(1) {
+    flex: 3;
+}
+
+.site-footer .footer-row:nth-child(1) .footer-col:nth-child(2) {
+    flex: 2;
+    display: flex;
+    gap: 2rem;
+}
+
+.site-footer .footer-sub-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.site-footer .footer-row h2 {
+    width: 75%;
+    font-weight: lighter;
+    line-height: 1.25;
+    font-size: clamp(3rem, 4vw, 5rem);
+}
+
+.site-footer .footer-row h3 {
+    font-weight: lighter;
+    line-height: 1.25;
+    font-size: clamp(1.25rem, 1.75vw, 2.5rem);
+}
+
+.site-footer a {
+    font-size: clamp(1.25rem, 1.75vw, 2.5rem);
+    font-weight: lighter;
+    line-height: 1.25;
+    transition: opacity 0.3s ease;
+}
+
+.site-footer a:hover {
+    opacity: 0.7;
+}
+
+.site-footer .footer-row p {
+    font-family: var(--font-footer);
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+/* GSAP pin-spacer reset */
+.pin-spacer {
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+}
+
+.pin-spacer>* {
+    border: none !important;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 1000px) {
+
+    /* Preloader */
+    .preloader svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    .preloader svg .orbit-text {
+        font-size: 3rem;
+    }
+
+    /* Hero */
+    .hero-section .hero-content {
+        align-items: flex-start;
+        flex-direction: column-reverse;
+        gap: 1rem;
+    }
+
+    .hero-section .hero-content h1 {
+        width: 100%;
+        font-size: 2.5rem;
+    }
+
+    /* About */
+    .about-section .about-hero h1,
+    .about-section .about-outro h1 {
+        width: 100%;
+        font-size: 2.25rem;
+    }
+
+    .about-section .marquee-wrapper {
+        width: 300%;
+    }
+
+    .about-section .about-horizontal-slide {
+        padding: 4rem;
+        flex-direction: column-reverse;
+        gap: 2rem;
+    }
+
+    .about-section .about-horizontal-slide .col:nth-child(1) {
+        align-items: flex-start;
+    }
+
+    .about-section .about-horizontal-slide .col h3 {
+        width: 100%;
+        font-size: 1.5rem;
+    }
+
+    .about-section .about-horizontal-slide .col img {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Skills */
+    .skills-section .skills-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .skills-section .skills-card-container {
+        width: 100%;
+        max-width: 550px;
+        flex: none;
+    }
+
+    .skills-section .skills-card-title {
+        bottom: 1rem;
+        left: 1rem;
+    }
+
+    /* Projects */
+    .projects-section .projects-intro h1,
+    .projects-section .projects-outro h1 {
+        width: 100%;
+        font-size: 2rem;
+    }
+
+    .projects-section .project-slider-title {
+        top: 5rem;
+        left: 0;
+        transform: none;
+        width: 100%;
+        padding: 2rem;
+    }
+
+    .projects-section .project-slider-title h1 {
+        font-size: 2rem;
+    }
+
+    .projects-section .project-slider-indicator {
+        top: unset;
+        transform: none;
+        bottom: 2rem;
+    }
+
+    /* Contact */
+    .contact-section .contact-form {
+        max-width: 100%;
+    }
+
+    /* Footer */
+    .site-footer .footer-row:nth-child(1) {
+        flex-direction: column;
+        gap: 4rem;
+    }
+
+    .site-footer .footer-row h2 {
+        width: 100%;
+    }
+}
+
+/* --- Mobile Menu --- */
+@media (max-width: 768px) {
+
+    .site-menu .menu-drawer {
+        top: 1rem;
+        left: 1rem;
+        padding: 0.25rem;
+    }
+
+    .site-menu .menu-drop-zone {
+        top: 1rem;
+        left: 1rem;
+        height: calc(2.5rem + 0.5rem);
+    }
+
+    .site-menu .menu-logo {
+        width: 3.5rem;
+        height: 2.5rem;
+    }
+
+    .site-menu .menu-logo img {
+        width: 2rem;
+    }
+
+    .site-menu .menu-toggler {
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0.75rem;
+    }
+
+    .site-menu .menu-items {
+        gap: 0.2rem;
+    }
+
+    .site-menu .menu-items .menu-item {
+        height: 2.5rem;
+    }
+
+    .site-menu .menu-items .menu-item a {
+        font-size: 0.7rem;
+        padding: 0 0.75rem;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+
+    .site-menu .menu-drawer {
+        top: 0.75rem;
+        left: 0.75rem;
+    }
+
+    .site-menu .menu-drop-zone {
+        top: 0.75rem;
+        left: 0.75rem;
+    }
+
+    .site-menu .menu-items .menu-item a {
+        font-size: 0.65rem;
+        padding: 0 0.5rem;
+    }
+
+    .site-menu .menu-logo {
+        width: 2.75rem;
+        height: 2.25rem;
+    }
+
+    .site-menu .menu-logo img {
+        width: 1.75rem;
+    }
+
+    .site-menu .menu-toggler {
+        width: 2.25rem;
+        height: 2.25rem;
+        padding: 0.625rem;
+    }
+
+    .site-menu .menu-items .menu-item {
+        height: 2.25rem;
+    }
+}
