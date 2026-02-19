@@ -174,12 +174,18 @@ export function initContact() {
             contactFeedback.textContent = "";
             contactFeedback.className = "contact-form-feedback";
 
+            // Timeout for slow mobile connections
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000);
+
             try {
                 const response = await fetch("/api/send", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ name, email, message }),
+                    signal: controller.signal,
                 });
+                clearTimeout(timeoutId);
 
                 const data = await response.json();
 
@@ -190,10 +196,15 @@ export function initContact() {
                     showFeedback(data.error || "Something went wrong. Please try again.", "error");
                 }
             } catch (err) {
-                showFeedback("Network error. Please check your connection and try again.", "error");
+                clearTimeout(timeoutId);
+                if (err.name === "AbortError") {
+                    showFeedback("Request timed out. Please try again.", "error");
+                } else {
+                    showFeedback("Network error. Please check your connection and try again.", "error");
+                }
             } finally {
                 contactSubmit.disabled = false;
-                contactSubmit.textContent = "Send Message";
+                contactSubmit.textContent = "SEND MESSAGE";
             }
         });
     }

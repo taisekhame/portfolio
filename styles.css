@@ -865,6 +865,8 @@ body.page-loaded .site-footer {
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .contact-section .contact-form button:hover {
@@ -1176,8 +1178,20 @@ body.page-loaded .site-footer {
     }
 
     .site-menu .menu-items .menu-item a {
-        font-size: 0.7rem;
-        padding: 0 0.75rem;
+        font-size: 0.65rem;
+        padding: 0 0.6rem;
+    }
+
+    /* Contact footer - stack on mobile */
+    .contact-section .contact-footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.25rem;
+    }
+
+    .contact-section .contact-footer p {
+        font-size: 0.8rem;
     }
 }
 
@@ -1195,12 +1209,12 @@ body.page-loaded .site-footer {
     }
 
     .site-menu .menu-items .menu-item a {
-        font-size: 0.65rem;
-        padding: 0 0.5rem;
+        font-size: 0.6rem;
+        padding: 0 0.4rem;
     }
 
     .site-menu .menu-logo {
-        width: 2.75rem;
+        width: 2.5rem;
         height: 2.25rem;
     }
 
