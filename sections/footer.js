@@ -62,20 +62,40 @@ export function initFooter() {
     loader.load(
         "/model.glb",
         (gltf) => {
-            model = gltf.scene;
+            const rawModel = gltf.scene;
 
-            const box = new THREE.Box3().setFromObject(model);
+            // Calculate bounding box BEFORE centering
+            const box = new THREE.Box3().setFromObject(rawModel);
             const center = box.getCenter(new THREE.Vector3());
             const size = box.getSize(new THREE.Vector3());
 
-            model.position.sub(center);
+            // Shift the raw model so its visual center is exactly at 0,0,0
+            rawModel.position.x = -center.x;
+            rawModel.position.y = -center.y;
+            rawModel.position.z = -center.z;
+
+            // Create a wrapper to act as the new pivot point
+            model = new THREE.Group();
+            model.add(rawModel);
+
+            // Scale to fit normalized bounds
+            const maxDim = Math.max(size.x, size.y, size.z);
+            let baseScale = 1 / maxDim;
+
+            // Responsive adjustment: if mobile, make it smaller so it fits the narrow FOV
+            if (window.innerWidth < 768) {
+                baseScale *= 0.6; // Scale down 40% on mobile
+            }
+
+            // Adjust placement further to the right on desktop, center on mobile to balance text
+            if (window.innerWidth > 768) {
+                model.position.x = window.innerWidth > 1400 ? 0.3 : 0.2;
+            }
+
+            model.scale.setScalar(baseScale);
             model.position.y = 0;
             model.position.z = -1;
             model.rotation.x = 0.5;
-
-            const maxDim = Math.max(size.x, size.y, size.z);
-            const scale = 1 / maxDim;
-            model.scale.setScalar(scale);
 
             scene.add(model);
             setupScrollTrigger();
