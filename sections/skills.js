@@ -10,6 +10,7 @@ export function initSkills() {
     cardContainers.forEach((cardContainer) => {
         const cardPaths = cardContainer.querySelectorAll(".svg-stroke path");
         const cardTitle = cardContainer.querySelector(".skills-card-title h3");
+        const hoverImg = cardContainer.querySelector(".card-hover-img");
 
         const split = SplitText.create(cardTitle, {
             type: "words",
@@ -44,6 +45,19 @@ export function initSkills() {
                 );
             });
 
+            // Hover image fades in at t=0.35, in sync with the text reveal
+            if (hoverImg) {
+                tl.to(
+                    hoverImg,
+                    {
+                        opacity: 1,
+                        duration: 0.7,
+                        ease: "power2.out",
+                    },
+                    0.35
+                );
+            }
+
             tl.to(
                 split.words,
                 {
@@ -73,6 +87,19 @@ export function initSkills() {
                     0
                 );
             });
+
+            // Hover image fades out immediately on mouse leave with the text
+            if (hoverImg) {
+                tl.to(
+                    hoverImg,
+                    {
+                        opacity: 0,
+                        duration: 0.5,
+                        ease: "power2.out",
+                    },
+                    0
+                );
+            }
 
             tl.to(
                 split.words,

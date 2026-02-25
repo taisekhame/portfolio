@@ -11,7 +11,7 @@ export function initProjects() {
             title:
                 "E-Commerce Platform — A modern shopping experience built with React and Node.js, featuring real-time inventory and seamless checkout.",
             image:
-                "https://images.pexels.com/photos/1382731/pexels-photo-1382731.jpeg?auto=compress&cs=tinysrgb&w=1920",
+                "https://res.cloudinary.com/deph6wiku/image/upload/f_auto,q_auto/v1771838985/1_g1vzqc.png",
             link: "#",
             linkText: "View Project",
         },
@@ -19,7 +19,7 @@ export function initProjects() {
             title:
                 "Portfolio Dashboard — An analytics dashboard with interactive data visualizations, custom charts, and responsive design.",
             image:
-                "https://images.pexels.com/photos/210182/pexels-photo-210182.jpeg?auto=compress&cs=tinysrgb&w=1920",
+                "https://res.cloudinary.com/deph6wiku/image/upload/f_auto,q_auto/v1771838995/2_gozncr.png",
             link: "#",
             linkText: "View Project",
         },
@@ -27,7 +27,7 @@ export function initProjects() {
             title:
                 "Social Media App — A real-time social platform with live messaging, content feeds, and AI-powered recommendations.",
             image:
-                "https://images.pexels.com/photos/1493111/pexels-photo-1493111.jpeg?auto=compress&cs=tinysrgb&w=1920",
+                "https://res.cloudinary.com/deph6wiku/image/upload/f_auto,q_auto/v1771838987/3_riuohk.png",
             link: "#",
             linkText: "View Project",
         },
@@ -35,7 +35,7 @@ export function initProjects() {
             title:
                 "Restaurant Booking System — An elegant reservation system with table management, menu browsing, and customer reviews.",
             image:
-                "https://images.pexels.com/photos/1307698/pexels-photo-1307698.jpeg?auto=compress&cs=tinysrgb&w=1920",
+                "https://res.cloudinary.com/deph6wiku/image/upload/f_auto,q_auto/v1771838993/4_zyk2xv.png",
             link: "#",
             linkText: "View Project",
         },
@@ -43,7 +43,7 @@ export function initProjects() {
             title:
                 "Fitness Tracker — A health and wellness app with workout tracking, nutrition logging, and progress visualization.",
             image:
-                "https://images.pexels.com/photos/1103829/pexels-photo-1103829.jpeg?auto=compress&cs=tinysrgb&w=1920",
+                "https://res.cloudinary.com/deph6wiku/image/upload/f_auto,q_auto/v1771839050/5_pxs63g.png",
             link: "#",
             linkText: "View Project",
         },
@@ -51,7 +51,7 @@ export function initProjects() {
             title:
                 "Music Streaming Service — A sleek audio platform with playlist curation, artist discovery, and cross-device sync.",
             image:
-                "https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1920",
+                "https://res.cloudinary.com/deph6wiku/image/upload/f_auto,q_auto/v1771839045/6_vsx2cy.png",
             link: "#",
             linkText: "View Project",
         },
@@ -59,7 +59,7 @@ export function initProjects() {
             title:
                 "Travel Planner — An intelligent travel companion with itinerary building, budget tracking, and local recommendations.",
             image:
-                "https://images.pexels.com/photos/2524739/pexels-photo-2524739.jpeg?auto=compress&cs=tinysrgb&w=1920",
+                "https://res.cloudinary.com/deph6wiku/image/upload/f_auto,q_auto/v1771838985/7_dj8czu.png",
             link: "#",
             linkText: "View Project",
         },
