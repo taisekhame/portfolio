@@ -80,19 +80,15 @@ export function initFooter() {
 
             // Scale to fit normalized bounds
             const maxDim = Math.max(size.x, size.y, size.z);
-            let baseScale = 1 / maxDim;
+            let baseScale = 1 / maxDim; // Desktop Scale
 
-            // Responsive adjustment: if mobile, make it smaller so it fits the narrow FOV
+            // Responsive adjustment: if mobile, apply exact previous small scale
             if (window.innerWidth < 768) {
-                baseScale *= 0.6; // Scale down 40% on mobile
-            }
-
-            // Adjust placement further to the right on desktop, center on mobile to balance text
-            if (window.innerWidth > 768) {
-                model.position.x = window.innerWidth > 1400 ? 0.3 : 0.2;
+                baseScale = (0.90 * 0.6) / maxDim;
             }
 
             model.scale.setScalar(baseScale);
+            model.position.x = 0; // Explicitly enforce true center
             model.position.y = 0;
             model.position.z = -1;
             model.rotation.x = 0.5;
