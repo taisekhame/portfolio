@@ -630,90 +630,141 @@ body.page-loaded .site-footer {
     width: 100%;
     height: 100svh;
     overflow: hidden;
-    background-color: #000;
     margin-top: -2px;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.projects-section .project-slider-images {
+/* Slide container — full size, centers the slide content */
+.projects-section .project-slide-container {
     position: absolute;
-    top: -2px;
-    left: 0;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 3rem 2rem;
+    overflow: hidden;
+}
+
+/* Individual slide wrapper */
+.projects-section .project-slide {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: calc(100% - 4rem);
+    /* accounting for container padding */
+    max-width: 900px;
+}
+
+/* Image card */
+.projects-section .project-img-card {
     width: 100%;
-    height: calc(100% + 4px);
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    aspect-ratio: 16 / 9;
+    flex-shrink: 0;
 }
 
-.projects-section .project-slider-images::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
+.projects-section .project-img-card img {
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.35);
-    pointer-events: none;
-    z-index: 1;
+    object-fit: cover;
+    display: block;
 }
 
-.projects-section .project-slider-images img {
-    position: absolute;
-    top: 0;
-    left: 0;
+/* Apple Liquid Glass detail card */
+.projects-section .project-glass-card {
     width: 100%;
-    height: 100%;
-    transform-origin: center;
-    will-change: transform, opacity;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-}
-
-.projects-section .project-slider-title {
-    position: absolute;
-    top: 50%;
-    left: 2rem;
-    transform: translateY(-50%);
-    width: 50%;
+    padding: 2rem 2.5rem;
+    border-radius: 1.25rem;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(32px) saturate(180%);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+        0 4px 30px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     color: #fff;
-    z-index: 2;
 }
 
-.projects-section .project-slider-title h1 {
-    font-size: 3rem;
-    font-weight: 400;
-    letter-spacing: -0.1rem;
+.projects-section .project-card-title {
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: -0.05rem;
     line-height: 1.2;
-    text-align: left;
-    width: 100%;
+    color: inherit;
     margin: 0;
 }
 
-.projects-section .project-link {
-    display: inline-block;
-    margin-top: 1.5rem;
-    color: #fff;
-    font-size: 1rem;
+.projects-section .project-card-desc {
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: inherit;
+    opacity: 0.8;
+    margin: 0;
+}
+
+.projects-section .project-card-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+.projects-section .project-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: 999px;
+    font-family: var(--font-primary);
+    font-size: 0.95rem;
     font-weight: 500;
-    letter-spacing: 0.05rem;
-    text-transform: uppercase;
+    letter-spacing: 0.02rem;
     text-decoration: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-    padding-bottom: 0.25rem;
-    transition: border-color 0.3s ease, opacity 0.3s ease;
     cursor: pointer;
+    transition: opacity 0.25s ease, transform 0.2s ease, background 0.2s ease;
+    color: inherit;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.projects-section .project-link:hover {
-    border-color: #fff;
+.projects-section .project-card-btn:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
 }
 
-.projects-section .project-link.placeholder {
-    opacity: 0.5;
-    cursor: default;
+.projects-section .project-card-btn svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
 }
 
+.projects-section .project-card-btn--live {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.projects-section .project-card-btn--github svg {
+    fill: currentColor;
+    stroke: none;
+}
+
+/* Slider indicator */
 .projects-section .project-slider-indicator {
     position: absolute;
     top: 50%;
@@ -733,7 +784,7 @@ body.page-loaded .site-footer {
     display: flex;
     align-items: center;
     gap: 1rem;
-    color: #fff;
+    color: inherit;
     font-family: var(--font-mono);
     font-weight: 400;
     font-size: 0.85rem;
@@ -751,7 +802,7 @@ body.page-loaded .site-footer {
     position: relative;
     width: 0.75rem;
     height: 1px;
-    background-color: #fff;
+    background-color: currentColor;
     transform-origin: right;
     will-change: transform;
     transform: scaleX(0);
@@ -774,16 +825,10 @@ body.page-loaded .site-footer {
     transform: translateX(-50%) scaleY(0);
     width: 3px;
     height: 100%;
-    background-color: #fff;
+    background-color: currentColor;
     transform-origin: top;
     will-change: transform;
     opacity: 1;
-}
-
-.projects-section .line {
-    position: relative;
-    display: block;
-    will-change: transform;
 }
 
 /* ==========================================================================
@@ -1118,22 +1163,64 @@ body.page-loaded .site-footer {
         font-size: 2rem;
     }
 
-    .projects-section .project-slider-title {
-        top: 5rem;
-        left: 0;
-        transform: none;
-        width: 100%;
-        padding: 2rem;
+    .projects-section .project-slide-container {
+        padding: 5rem 1.25rem 1.5rem;
+        gap: 1rem;
     }
 
-    .projects-section .project-slider-title h1 {
-        font-size: 2rem;
+    .projects-section .project-slide {
+        gap: 1rem;
+        width: calc(100% - 2.5rem);
+    }
+
+    .projects-section .project-img-card {
+        aspect-ratio: 4 / 3;
+    }
+
+    .projects-section .project-glass-card {
+        padding: 1.25rem 1.5rem;
+    }
+
+    .projects-section .project-card-title {
+        font-size: 1.1rem;
     }
 
     .projects-section .project-slider-indicator {
-        top: unset;
+        top: auto;
+        bottom: 2.5rem;
+        right: 0;
+        left: 0;
         transform: none;
-        bottom: 2rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .projects-section .project-slider-indices {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .projects-section .project-slider-indices p {
+        flex-direction: column-reverse;
+        /* Reverses the DOM order so marker acts as underline */
+        gap: 0.35rem;
+        /* Space between number and underline */
+        margin: 0;
+    }
+
+    .projects-section .index {
+        width: auto;
+        justify-content: center;
+    }
+
+    .projects-section .marker {
+        width: 1rem;
+        transform-origin: center !important;
+        /* Grow underline from the center out */
     }
 
     /* Contact */
@@ -1243,5 +1330,80 @@ body.page-loaded .site-footer {
 
     .site-menu .menu-items .menu-item {
         height: 2.25rem;
+    }
+}
+
+/* ==========================================================================
+   TOUCH INTERACTION HINTS (mobile/tablet only)
+   ========================================================================== */
+
+/* Base — hidden on all screens, shown only via media query */
+.touch-hint {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+
+    .touch-hint {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%) translateY(4px);
+        padding: 0.5rem 1rem 0.5rem 0.75rem;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 999px;
+        color: #fff;
+        font-family: var(--font-primary);
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.03rem;
+        white-space: nowrap;
+        pointer-events: none;
+        z-index: 10;
+        opacity: 0;
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .touch-hint.is-visible {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    .touch-hint svg {
+        width: 1rem;
+        height: 1rem;
+        flex-shrink: 0;
+        stroke: #fff;
+    }
+
+    /* Per-section positioning */
+
+    /* Hero — sits just above the bottom content bar */
+    .hero-hint {
+        bottom: 5.5rem;
+    }
+
+    /* Skills — fixed at bottom while scrolling through cards */
+    .skills-hint {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        margin: 0;
+        z-index: 100;
+    }
+
+    /* Projects — bottom center of the pinned slider */
+    .projects-hint {
+        bottom: 5rem;
+    }
+
+    /* Footer — bottom center above the text row */
+    .footer-hint {
+        bottom: 4rem;
     }
 }

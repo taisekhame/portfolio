@@ -16,6 +16,7 @@ import { initProjects } from "./sections/projects.js";
 import { initContact } from "./sections/contact.js";
 import { initFooter } from "./sections/footer.js";
 import { initMenu } from "./sections/menu.js";
+import { initHints } from "./sections/hints.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     // Initialize Lenis smooth scroll (shared instance)
@@ -40,5 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
         initContact();
         initFooter();
         initMenu(lenis);
+        initHints();
     });
 });

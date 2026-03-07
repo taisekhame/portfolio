@@ -27,8 +27,12 @@ export function initSkills() {
         });
 
         let tl;
+        let isOpen = false;
 
-        cardContainer.addEventListener("mouseenter", () => {
+        function openCard() {
+            if (isOpen) return;
+            isOpen = true;
+
             if (tl) tl.kill();
             tl = gsap.timeline();
 
@@ -45,32 +49,21 @@ export function initSkills() {
                 );
             });
 
-            // Hover image fades in at t=0.35, in sync with the text reveal
             if (hoverImg) {
-                tl.to(
-                    hoverImg,
-                    {
-                        opacity: 1,
-                        duration: 0.7,
-                        ease: "power2.out",
-                    },
-                    0.35
-                );
+                tl.to(hoverImg, { opacity: 1, duration: 0.7, ease: "power2.out" }, 0.35);
             }
 
             tl.to(
                 split.words,
-                {
-                    yPercent: 0,
-                    duration: 0.75,
-                    ease: "power3.out",
-                    stagger: 0.075,
-                },
+                { yPercent: 0, duration: 0.75, ease: "power3.out", stagger: 0.075 },
                 0.35
             );
-        });
+        }
 
-        cardContainer.addEventListener("mouseleave", () => {
+        function closeCard() {
+            if (!isOpen) return;
+            isOpen = false;
+
             if (tl) tl.kill();
             tl = gsap.timeline();
 
@@ -88,29 +81,39 @@ export function initSkills() {
                 );
             });
 
-            // Hover image fades out immediately on mouse leave with the text
             if (hoverImg) {
-                tl.to(
-                    hoverImg,
-                    {
-                        opacity: 0,
-                        duration: 0.5,
-                        ease: "power2.out",
-                    },
-                    0
-                );
+                tl.to(hoverImg, { opacity: 0, duration: 0.5, ease: "power2.out" }, 0);
             }
 
             tl.to(
                 split.words,
-                {
-                    yPercent: 100,
-                    duration: 0.5,
-                    ease: "power3.out",
-                    stagger: { each: 0.05, from: "end" },
-                },
+                { yPercent: 100, duration: 0.5, ease: "power3.out", stagger: { each: 0.05, from: "end" } },
                 0
             );
+        }
+
+        // Desktop Hover
+        cardContainer.addEventListener("mouseenter", openCard);
+        cardContainer.addEventListener("mouseleave", closeCard);
+
+        // Mobile Tap Toggle
+        cardContainer.addEventListener("click", () => {
+            if (window.innerWidth <= 1000) {
+                if (isOpen) closeCard();
+                else {
+                    // Close others first
+                    cardContainers.forEach(otherCard => {
+                        if (otherCard !== cardContainer) {
+                            // Dispatch a custom event to tell other cards to close
+                            otherCard.dispatchEvent(new CustomEvent('closeMobileCard'));
+                        }
+                    });
+                    openCard();
+                }
+            }
         });
+
+        // Listen for custom close event
+        cardContainer.addEventListener('closeMobileCard', closeCard);
     });
 }

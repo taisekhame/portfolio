@@ -19,6 +19,7 @@
     href="https://res.cloudinary.com/deph6wiku/image/upload/f_auto,q_auto/v1771838531/Hero_Image_crgzbt.png"
     crossorigin="anonymous" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </head>
 
 <body>
@@ -133,6 +134,15 @@
       <h1>Crafting digital experiences between code and creativity.</h1>
       <p>Taiye Aisekhame — Creative Developer</p>
     </div>
+    <div class="touch-hint hero-hint">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 11V7a3 3 0 0 1 6 0v4" />
+        <path d="M9 11a3 3 0 0 0-3 3v1a7 7 0 0 0 14 0v-5a2 2 0 0 0-4 0v1" />
+        <path d="M9 11a2 2 0 0 0-2 2" />
+      </svg>
+      <span>Tap to interact</span>
+    </div>
   </section>
 
   <!-- ===================== ABOUT SECTION ===================== -->
@@ -232,6 +242,15 @@
   <section class="skills-section" id="skills">
     <div class="skills-header">
       <h1>Skills &amp; Expertise</h1>
+    </div>
+    <div class="touch-hint skills-hint">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 11V7a3 3 0 0 1 6 0v4" />
+        <path d="M9 11a3 3 0 0 0-3 3v1a7 7 0 0 0 14 0v-5a2 2 0 0 0-4 0v1" />
+        <path d="M9 11a2 2 0 0 0-2 2" />
+      </svg>
+      <span>Tap cards to reveal</span>
     </div>
 
     <!-- Row 1 -->
@@ -415,20 +434,32 @@
     </div>
     <div class="project-slider">
       <div class="project-slider-images">
-        <img src="https://res.cloudinary.com/deph6wiku/image/upload/f_auto,q_auto/v1771838985/1_g1vzqc.png"
-          alt="Project 1" crossorigin="anonymous" />
+        <picture>
+          <source media="(min-width: 1001px)"
+            srcset="https://res.cloudinary.com/deph6wiku/image/upload/f_auto,q_auto/v1772848288/1_desktop_mm6rp9.png">
+          <source media="(min-width: 601px)"
+            srcset="https://res.cloudinary.com/deph6wiku/image/upload/f_auto,q_auto/v1772848286/1_tablet_xpybow.png">
+          <img src="https://res.cloudinary.com/deph6wiku/image/upload/f_auto,q_auto/v1772848277/1_mobile_drplod.png"
+            alt="Project 1" crossorigin="anonymous" />
+        </picture>
       </div>
       <div class="project-slider-title">
-        <h1>
-          E-Commerce Platform — A modern shopping experience built with React and Node.js, featuring real-time inventory
-          and seamless checkout.
-        </h1>
+        <a href="https://www.lashbrowsaestheticstudio.uk/" target="_blank" rel="noopener" class="project-link">View
+          Project →</a>
       </div>
       <div class="project-slider-indicator">
         <div class="project-slider-indices"></div>
       </div>
       <div class="project-slider-progress-bar">
         <div class="project-slider-progress"></div>
+      </div>
+      <div class="touch-hint projects-hint">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <polyline points="19 12 12 19 5 12" />
+        </svg>
+        <span>Scroll to explore</span>
       </div>
     </div>
     <div class="projects-outro">
@@ -461,6 +492,15 @@
   <footer class="site-footer">
     <div class="footer-container">
       <div id="footer-canvas"></div>
+      <div class="touch-hint footer-hint">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21.5 2l-4 10-6-4-4 6-4-10z" />
+          <circle cx="12" cy="14" r="1" />
+          <path d="M12 14v5" />
+        </svg>
+        <span>Touch to rotate</span>
+      </div>
       <div class="footer-content">
         <div class="footer-row">
           <div class="footer-col">
