@@ -67,21 +67,14 @@ export function initHints() {
             }, delay);
         }
 
-        // Listen for interactions — Skills only reacts to clicks/taps, others react to any touch
-        if (hintData.sectionId === "skills") {
-            const cards = section.querySelectorAll(".skills-card-container");
-            cards.forEach(card => {
-                card.addEventListener("click", handleInteraction, { passive: true });
-            });
-        } else {
-            section.addEventListener("touchstart", handleInteraction, { passive: true });
-            section.addEventListener("touchmove", handleInteraction, { passive: true });
+        // Listen for interactions — unified for all sections
+        section.addEventListener("touchstart", handleInteraction, { passive: true });
+        section.addEventListener("touchmove", handleInteraction, { passive: true });
 
-            if (hintData.sectionId === "projects") {
-                const slider = section.querySelector(".project-slider");
-                if (slider) {
-                    slider.addEventListener("wheel", handleInteraction, { passive: true });
-                }
+        if (hintData.sectionId === "projects") {
+            const slider = section.querySelector(".project-slider");
+            if (slider) {
+                slider.addEventListener("wheel", handleInteraction, { passive: true });
             }
         }
     });
